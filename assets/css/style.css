@@ -1,0 +1,33 @@
+/* universal styles */
+
+
+
+/* universal styles end */
+
+/* form & button styles begin */
+
+button {
+    border-radius: 10px;
+    background-color: lightgrey;
+    color: black;
+    border: none;
+    width: 100%;
+    padding: .25em;
+}
+
+textarea {
+    border-radius: 10px;
+    resize: none;
+}
+
+/* pseudo element styles */
+
+textarea::placeholder {
+    text-align: center;
+    
+}
+
+button:hover {
+    background-color: #83AAFF;
+    color: white;
+}

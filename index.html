@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Weather Dashboard</title>
+</head>
+
+<body>
+    <header>
+        <h1 class="text-center mt-3">Weather Dashboard</h1>
+    </header>
+
+    <main class="row p-3 m-3">
+
+        <!-- holds together all left hand components -->
+        <div class="col-4 bg-secondary">
+
+            <!-- form input containing textarea and button -->
+            <form class="p-3">
+                <h2>Search for a City:</h2>
+                <textarea class="w-100" placeholder="Enter City Name or Zip Code"></textarea>
+                <button>Search</button>
+             </form>
+
+            <!-- dynamically generated buttons with saved searches will go here -->
+            <div class="p-3 bg-success d-flex justify-content-center">
+                <button>Saved Location Search</button>
+            </div>
+
+        </div>
+
+        <!-- holds together all generated data -->
+        <div class="col-8 p-3 bg-primary">
+            <h2>Data will go here</h2>
+        </div>
+        
+    </main>
+    
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
