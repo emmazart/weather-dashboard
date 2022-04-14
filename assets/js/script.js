@@ -111,15 +111,18 @@ var coordinateFetch = function(lat, lon) {
 
         // iterate through forecastArr
         for (i = 0; i < 5; i++) {
+            var forecastDayData = today.add(i, 'day');
+            var forecastDay = dayjs(forecastDayData).format('MM/DD/YYYY');
             var forecastTemp = "Temp: " + forecastArr[i].temp.day + " F";
             var forecastWind = "Wind: " + forecastArr[i].wind_speed + " MPH";
             var forecastHumid = "Humidity: " + forecastArr[i].humidity + " %";
 
             // package data?
             var forecastObj = {
-                0: forecastTemp,
-                1: forecastWind,
-                2: forecastHumid
+                0: forecastDay,
+                1: forecastTemp,
+                2: forecastWind,
+                3: forecastHumid
             };
 
             // push data to array
@@ -140,15 +143,17 @@ var generateForecast = function(array) {
         // create elements to hold each data
         console.log(a);
         var ulEl = document.createElement("ul");
+        var forecastDayEl = document.createElement("p");
         var listItemTemp = document.createElement("li");
         var listItemWind = document.createElement("li");
         var listItemHumid = document.createElement("li");
 
-        listItemTemp.textContent = a[0];
-        listItemWind.textContent = a[1];
-        listItemHumid.textContent = a[2];
+        forecastDayEl.textContent = a[0];
+        listItemTemp.textContent = a[1];
+        listItemWind.textContent = a[2];
+        listItemHumid.textContent = a[3];
 
-        ulEl.append(listItemTemp, listItemWind, listItemHumid);
+        ulEl.append(forecastDayEl, listItemTemp, listItemWind, listItemHumid);
         fiveDayDivEl.appendChild(ulEl);
     }
 }

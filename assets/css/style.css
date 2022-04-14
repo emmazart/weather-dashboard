@@ -54,7 +54,16 @@ li {
 #five-day > ul {
     background-color: navy;
     color: white;
-    margin: .25em;
-    padding: .25em;
+    margin: .5em;
+    padding: 1em;
     border-radius: 5px;
+    font-size: 14px;
+}
+
+#five-day:first-child {
+    margin-left: 0;
+}
+
+#five-day p {
+    font-size: 18px;
 }
