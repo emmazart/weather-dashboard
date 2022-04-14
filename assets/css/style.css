@@ -38,6 +38,19 @@ button:hover {
     padding: 0;
 }
 
-#today-data > li {
+li {
     list-style: none;
+}
+
+#today {
+    font-size: x-large;
+    padding: 15px 15px 15px 0;
+}
+
+#five-day > ul {
+    background-color: navy;
+    color: white;
+    margin: .25em;
+    padding: .25em;
+    border-radius: 5px;
 }

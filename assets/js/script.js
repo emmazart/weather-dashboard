@@ -1,5 +1,9 @@
 // ---------- DECLARE GLOBAL VARIABLES ---------- //
 
+var today = dayjs(); // get current date
+var formatToday = dayjs(today).format('MM/DD/YYYY');
+var todayEl = document.querySelector("#today");
+
 var searchBtn = document.querySelector("#search-btn"); // select search button
 var savedCitiesArr = [];
 var btnList = document.querySelector("#saved-list");
@@ -20,7 +24,10 @@ $(document).ready(function(){
 
         // format user input to capitalize first letter
         var userInput = input.charAt(0).toUpperCase() + input.slice(1)
-        cityHeader.textContent = userInput;
+
+        // update header with location selection
+        cityHeader.innerHTML = "<h2 id='city-header'>" + userInput + "<span id='today'>" + formatToday + "</span></h2>"
+
 
         // ---------- SET & GET CITIES LOCAL STORAGE ---------- //
         // if lsCities already exists in local storage
@@ -94,6 +101,20 @@ var coordinateFetch = function(lat, lon) {
         windEl.textContent = currentWind;
         humidEl.textContent = currentHumid;
         uviEl.textContent = currentUV;
+
+        // grab 5 day forecast data
+        var forecastArr = data.daily;
+        console.log(forecastArr);
+
+        // iterate through forecastArr
+        for (i = 0; i < 5; i++) {
+            var forecastTemp = forecastArr[i].temp.day + " F";
+            var forecastWind = forecastArr[i].wind_speed + " MPH";
+            var forecastHumid = forecastArr[i].humidity + " %";
+
+            console.log(forecastTemp, forecastWind, forecastHumid);
+    
+        }
 
     })
     
