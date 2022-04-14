@@ -18,7 +18,7 @@
     <main class="row p-3 m-3">
 
         <!-- holds together all left hand components -->
-        <div class="col-4 bg-secondary">
+        <div class="col-3 bg-secondary">
 
             <!-- form input containing textarea and button -->
             <form class="p-3">
@@ -35,7 +35,7 @@
         </div>
 
         <!-- holds together all generated data -->
-        <div class="col-8 p-3 bg-primary">
+        <div class="col-9 p-3 bg-primary">
             <!-- today data -->
             <div id="today">
                 <h2 id="city-header">Data will go here<span id="today"></span></h2>
@@ -46,24 +46,8 @@
                     <li>UV Index: <span id="uvi"></span></li>
                 </ul>
             </div>
-            <!-- five day forecast data -->
-            <div class="row mx-0" id="five-day">
-                <ul class="col" id="day-one">
-                    <li>day one</li>
-                </ul>
-                <ul class="col" id="day-two">
-                    <li>day two</li>
-                </ul>
-                <ul class="col" id="day-three">
-                    <li>day three</li>
-                </ul>
-                <ul class="col" id="day-four">
-                    <li>day four</li>
-                </ul>
-                <ul class="col" id="day-five">
-                    <li>day five</li>
-                </ul>
-            </div>
+            <!-- five day forecast data is dynamically generated-->
+            <div class="row mx-0" id="five-day"></div>
         </div>
         
     </main>

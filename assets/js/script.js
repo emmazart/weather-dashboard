@@ -1,8 +1,8 @@
 // ---------- DECLARE GLOBAL VARIABLES ---------- //
 
 var today = dayjs(); // get current date
-var formatToday = dayjs(today).format('MM/DD/YYYY');
-var todayEl = document.querySelector("#today");
+var formatToday = dayjs(today).format('MM/DD/YYYY'); // format today's date
+var todayEl = document.querySelector("#today"); // select where to append date
 
 var searchBtn = document.querySelector("#search-btn"); // select search button
 var savedCitiesArr = [];
@@ -10,7 +10,8 @@ var btnList = document.querySelector("#saved-list");
 var cityHeader = document.querySelector("#city-header");
 var cityToday = document.querySelector("#today-data");
 
-var fiveDayForecastArr = [];
+var fiveDayForecastArr = []; // empty array to hold forecast data
+var fiveDayDivEl = document.querySelector("#five-day");
 
 // ---------- END GLOBAL VARIABLES ---------- //
 
@@ -125,22 +126,31 @@ var coordinateFetch = function(lat, lon) {
             fiveDayForecastArr.push(forecastObj);
         }
 
-        console.log(fiveDayForecastArr);
-        // generateForecast();
-
+        // console.log(fiveDayForecastArr);
+        generateForecast(fiveDayForecastArr);
     })
-    
-
 }
 
 // ---------- FUNCTION FOR DYNAMICALLY CREATING FIVE DAY FORECAST ELEMENTS ---------- //
 
-var generateForecast = function() {
-    console.log(forecastArr);
-// create elements to hold each data
-// var listItemEl = document.createElement("li");
+var generateForecast = function(array) {
+    console.log(array);
 
+    for (var a of array) {
+        // create elements to hold each data
+        console.log(a);
+        var ulEl = document.createElement("ul");
+        var listItemTemp = document.createElement("li");
+        var listItemWind = document.createElement("li");
+        var listItemHumid = document.createElement("li");
 
+        listItemTemp.textContent = a[0];
+        listItemWind.textContent = a[1];
+        listItemHumid.textContent = a[2];
+
+        ulEl.append(listItemTemp, listItemWind, listItemHumid);
+        fiveDayDivEl.appendChild(ulEl);
+    }
 }
 
 
