@@ -63,7 +63,10 @@ var createBtns = function() {
     for (var c of lsCities) {
         var newBtn = document.createElement("button");
         newBtn.textContent = c;
-        newBtn.classList = "d-flex w-100"
+        newBtn.classList = "w-100 text-center py-1 my-2";
         btnList.appendChild(newBtn);
     }
 }
+
+// will need a click listnere for the button list to read text content
+// and determine how to populate the weather data from a save
