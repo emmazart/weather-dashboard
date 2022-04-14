@@ -3,6 +3,8 @@
 var searchBtn = document.querySelector("#search-btn"); // select search button
 var savedCitiesArr = [];
 var btnList = document.querySelector("#saved-list");
+var cityHeader = document.querySelector("#city-header");
+var cityToday = document.querySelector("#today-data");
 
 // ---------- END GLOBAL VARIABLES ---------- //
 
@@ -14,9 +16,13 @@ $(document).ready(function(){
         console.log(this);
 
         // select sibling textarea and return the value
-        var userInput = $(this).siblings("#input").val();
+        var input = $(this).siblings("#input").val();
 
-// ---------- SET & GET CITIES LOCAL STORAGE ---------- //
+        // format user input to capitalize first letter
+        var userInput = input.charAt(0).toUpperCase() + input.slice(1)
+        cityHeader.textContent = userInput;
+
+        // ---------- SET & GET CITIES LOCAL STORAGE ---------- //
         // if lsCities already exists in local storage
         if (localStorage.getItem("cities")) {
             // retrieve current cities array
@@ -38,23 +44,64 @@ $(document).ready(function(){
             createBtns();
         }
 
-        // insert user input into fetch url
-// ---------- FETCH CALL FOR OPEN WEATHER API ---------- //
-        // Documentation for OpenWeather: https://openweathermap.org/api/one-call-api
-        var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&appid=8450bd340817d310b29bc7a4282140ff";
+        // ---------- FETCH CALL FOR OPEN WEATHER API TO RETRIEVE INPUT CITY COORDINATES ---------- //
+        var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&units=imperial&appid=8450bd340817d310b29bc7a4282140ff";
 
-
-        fetch(apiUrl)
+            fetch(apiUrl)
             .then(function(response) {
                 return response.json();
             })
             .then(function(data) {
                 console.log(data);
-            });
+                // grab latitude and longitude coordinates
+                var lon = data.coord.lon;
+                var lat = data.coord.lat;
 
+                // pass them through the coordinate fetch function
+                coordinateFetch(lat, lon);
+            })
     })
 
 });
+
+// ---------- FETCH DATA BASED ON COORDINATES ---------- //
+var coordinateFetch = function(lat, lon) {
+
+    // select span elements to hold generated data
+    var tempEl = document.querySelector("#temp");
+    var windEl = document.querySelector("#wind");
+    var humidEl = document.querySelector("#humid");
+    var uviEl = document.querySelector("#uvi");
+
+    var coordinateApi = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=8450bd340817d310b29bc7a4282140ff";
+
+    fetch(coordinateApi)
+    .then(function(response) {
+        return response.json();
+    })
+        
+    .then(function(data) {
+        console.log(data);
+
+        // grab relevant data points
+        var currentTemp = data.current.temp + " F";
+        var currentWind = data.current.wind_speed + " MPH";
+        var currentHumid = data.current.humidity + " %";
+        var currentUV = data.current.uvi;
+
+        // add data to corresponding elements
+        tempEl.textContent = currentTemp;
+        windEl.textContent = currentWind;
+        humidEl.textContent = currentHumid;
+        uviEl.textContent = currentUV;
+
+    })
+    
+
+}
+
+
+
 
 // ---------- DYNAMICALLY CREATE BUTTONS FOR SAVED CITIES ---------- //
 var createBtns = function() {

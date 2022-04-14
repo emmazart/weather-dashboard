@@ -31,3 +31,13 @@ button:hover {
     background-color: #83AAFF;
     color: white;
 }
+
+/* data styles begin */
+
+#today-data {
+    padding: 0;
+}
+
+#today-data > li {
+    list-style: none;
+}
