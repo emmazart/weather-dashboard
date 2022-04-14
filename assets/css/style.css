@@ -47,6 +47,10 @@ li {
     padding: 15px 15px 15px 0;
 }
 
+#today span {
+    padding-left: 15px;
+}
+
 #five-day > ul {
     background-color: navy;
     color: white;

@@ -10,6 +10,8 @@ var btnList = document.querySelector("#saved-list");
 var cityHeader = document.querySelector("#city-header");
 var cityToday = document.querySelector("#today-data");
 
+var fiveDayForecastArr = [];
+
 // ---------- END GLOBAL VARIABLES ---------- //
 
 $(document).ready(function(){
@@ -108,16 +110,36 @@ var coordinateFetch = function(lat, lon) {
 
         // iterate through forecastArr
         for (i = 0; i < 5; i++) {
-            var forecastTemp = forecastArr[i].temp.day + " F";
-            var forecastWind = forecastArr[i].wind_speed + " MPH";
-            var forecastHumid = forecastArr[i].humidity + " %";
+            var forecastTemp = "Temp: " + forecastArr[i].temp.day + " F";
+            var forecastWind = "Wind: " + forecastArr[i].wind_speed + " MPH";
+            var forecastHumid = "Humidity: " + forecastArr[i].humidity + " %";
 
-            console.log(forecastTemp, forecastWind, forecastHumid);
-    
+            // package data?
+            var forecastObj = {
+                0: forecastTemp,
+                1: forecastWind,
+                2: forecastHumid
+            };
+
+            // push data to array
+            fiveDayForecastArr.push(forecastObj);
         }
+
+        console.log(fiveDayForecastArr);
+        // generateForecast();
 
     })
     
+
+}
+
+// ---------- FUNCTION FOR DYNAMICALLY CREATING FIVE DAY FORECAST ELEMENTS ---------- //
+
+var generateForecast = function() {
+    console.log(forecastArr);
+// create elements to hold each data
+// var listItemEl = document.createElement("li");
+
 
 }
 
