@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css"> -->
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Weather Dashboard</title>
 </head>
@@ -38,7 +39,10 @@
         <div class="col-9 p-3 bg-primary">
             <!-- today data -->
             <div id="today">
-                <h2 id="city-header">Data will go here<span id="today"></span></h2>
+                <h2 id="city-header">Data will go here
+                    <span id="today"></span>
+                    <!-- <img src="http://openweathermap.org/img/wn/10d.png" alt="weather icon" /> -->
+                </h2>
                 <ul id="today-data">
                     <li>Temp: <span id="temp"></span></li>
                     <li>Wind: <span id="wind"></span></li>
@@ -47,7 +51,9 @@
                 </ul>
             </div>
             <!-- five day forecast data is dynamically generated-->
-            <div class="row mx-0" id="five-day"></div>
+            <div class="row mx-0" id="five-day">
+                <h2>5 Day Forecast:</h2>
+            </div>
         </div>
         
     </main>
