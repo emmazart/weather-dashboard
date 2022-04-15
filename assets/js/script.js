@@ -17,9 +17,22 @@ var fiveDayDivEl = document.querySelector("#five-day");
 
 $(document).ready(function(){
 
-    // on click of search button
+    // ---------- CHECK LOCAL STORAGE FOR SAVED CITIES ---------- //
+
+    if (localStorage.getItem("cities")) {
+        // retrieve current cities array
+        lsCities = JSON.parse(localStorage.getItem("cities"));
+        // call function to create buttons
+        createBtns();
+    } else {
+        // nothing
+    }
+
+    // ---------- CLICK LISTENER FOR SEARCH BUTTON ---------- //
     $(searchBtn).click(function(event) {
         event.preventDefault();
+        var lsCities = JSON.parse(localStorage.getItem("cities"));
+
 
         // select sibling textarea and return the value
         var input = $(this).siblings("#input").val();
@@ -32,44 +45,45 @@ $(document).ready(function(){
 
 
         // ---------- SET & GET CITIES LOCAL STORAGE ---------- //
-        // if lsCities already exists in local storage
-        if (localStorage.getItem("cities")) {
-            // retrieve current cities array
-            lsCities = JSON.parse(localStorage.getItem("cities"));
-            // add new city & send back to local storage
-            lsCities.push(userInput);
-            localStorage.setItem("cities", JSON.stringify(lsCities));
-
-            // call function to create buttons
-            createBtns();
-
-        // else if nothing is in local storage
-        } else {
+        // if nothing is in local storage
+        if (!localStorage.getItem("cities")) {
             savedCitiesArr.push(userInput);
             lsCities = localStorage.setItem("cities", JSON.stringify(savedCitiesArr));
 
             createBtns();
-        }
+        } else if (lsCities.includes(userInput)) {
+            console.log("nothing");
+        } else {
+            lsCities.push(userInput);
+            localStorage.setItem("cities", JSON.stringify(lsCities));
 
-        // ---------- FETCH CALL FOR OPEN WEATHER API TO RETRIEVE INPUT CITY COORDINATES ---------- //
-        var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&units=imperial&appid=8450bd340817d310b29bc7a4282140ff";
+            createBtns();
+        };
 
-            fetch(apiUrl)
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(data) {
-                console.log(data);
-                // grab latitude and longitude coordinates
-                var lon = data.coord.lon;
-                var lat = data.coord.lat;
-
-                // pass them through the coordinate fetch function
-                coordinateFetch(lat, lon);
-            })
+        checkWeather(userInput);
     })
 
 });
+
+// ---------- FETCH CALL FOR OPEN WEATHER API TO RETRIEVE INPUT CITY COORDINATES ---------- //
+var checkWeather = function(userInput) {
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&units=imperial&appid=8450bd340817d310b29bc7a4282140ff";
+
+        fetch(apiUrl)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            console.log(data);
+            // grab latitude and longitude coordinates
+            var lon = data.coord.lon;
+            var lat = data.coord.lat;
+
+            // pass them through the coordinate fetch function
+            coordinateFetch(lat, lon);
+        })};
+
+
 
 // ---------- FETCH DATA BASED ON COORDINATES ---------- //
 var coordinateFetch = function(lat, lon) {
@@ -95,8 +109,7 @@ var coordinateFetch = function(lat, lon) {
 
         // grab relevant data points
         var currentIcon = data.current.weather[0].icon;
-        // var iconUrl = "http://openweathermap.org/img/wn/" + currentIcon + "@2x.png";
-        var iconUrl = "http://openweathermap.org/img/wn/10d.png"
+        var iconUrl = "http://openweathermap.org/img/wn/" + currentIcon + ".png";
 
         var currentTemp = data.current.temp + " °F";
         var currentWind = data.current.wind_speed + " MPH";
@@ -104,7 +117,7 @@ var coordinateFetch = function(lat, lon) {
         var currentUV = data.current.uvi;
 
         // add data to corresponding elements for today's weather
-        iconEl.innerHTML = "<img id='icon' src=" + iconUrl + " alt='weather icon' />";
+        iconEl.setAttribute("src", iconUrl);
         tempEl.textContent = currentTemp;
         windEl.textContent = currentWind;
         humidEl.textContent = currentHumid;
@@ -126,6 +139,8 @@ var coordinateFetch = function(lat, lon) {
         // iterate through forecastArr
         for (i = 0; i < 5; i++) {
             var forecastDayData = today.add((i + 1), 'day');
+            var forecastIcon = forecastArr[i].weather[0].icon;
+            var forecastIconUrl = "http://openweathermap.org/img/wn/" + forecastIcon + ".png"
             var forecastDay = dayjs(forecastDayData).format('MM/DD/YYYY');
             var forecastTemp = "Temp: " + forecastArr[i].temp.day + " °F";
             var forecastWind = "Wind: " + forecastArr[i].wind_speed + " MPH";
@@ -134,16 +149,15 @@ var coordinateFetch = function(lat, lon) {
             // package data
             var forecastObj = {
                 0: forecastDay,
-                1: forecastTemp,
-                2: forecastWind,
-                3: forecastHumid
+                1: forecastIconUrl,
+                2: forecastTemp,
+                3: forecastWind,
+                4: forecastHumid
             };
 
             // push data to array
             fiveDayForecastArr.push(forecastObj);
         }
-
-        // console.log(fiveDayForecastArr);
         generateForecast(fiveDayForecastArr);
     })
 }
@@ -155,19 +169,21 @@ var generateForecast = function(array) {
 
     for (var a of array) {
         // create elements to hold each data
-        console.log(a);
+        // console.log(a);
         var ulEl = document.createElement("ul");
         var forecastDayEl = document.createElement("p");
+        var forecastIcon = document.createElement("img");
         var listItemTemp = document.createElement("li");
         var listItemWind = document.createElement("li");
         var listItemHumid = document.createElement("li");
 
         forecastDayEl.textContent = a[0];
-        listItemTemp.textContent = a[1];
-        listItemWind.textContent = a[2];
-        listItemHumid.textContent = a[3];
+        forecastIcon.setAttribute("src", a[1])
+        listItemTemp.textContent = a[2];
+        listItemWind.textContent = a[3];
+        listItemHumid.textContent = a[4];
 
-        ulEl.append(forecastDayEl, listItemTemp, listItemWind, listItemHumid);
+        ulEl.append(forecastDayEl, forecastIcon, listItemTemp, listItemWind, listItemHumid);
         fiveDayDivEl.appendChild(ulEl);
     }
 }
@@ -184,4 +200,9 @@ var createBtns = function() {
         newBtn.classList = "w-100 text-center py-1 my-2";
         btnList.appendChild(newBtn);
     }
+
+    // event listener for save buttons
+    console.log(lsCities);
+    // console.log(lsCities);
+    // newBtn.addEventListener("click", checkWeather(newBtn.textContent));
 }
