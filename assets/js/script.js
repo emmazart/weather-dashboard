@@ -32,9 +32,7 @@ $(document).ready(function(){
 
     $(searchBtn).click(function(event) {
         event.preventDefault();
-
         var lsCities = JSON.parse(localStorage.getItem("cities"));
-
 
         // select sibling textarea and return the value
         var input = $(this).siblings("#input").val();
@@ -222,6 +220,6 @@ var createBtns = function() {
         cityHeader.innerHTML = "<h2 id='city-header'>" + target + "<span id='today'>" + formatToday + "</span><img id='icon' /></h2>"
 
         fiveDayDivEl.textContent = ""; // clear data
-        checkWeather(target);      
+        checkWeather(target); // pass target to checkWeather
     });
 }
