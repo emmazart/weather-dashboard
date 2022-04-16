@@ -1,11 +1,4 @@
-/* universal styles */
-
-
-
-/* universal styles end */
-
 /* form & button styles begin */
-
 button {
     border-radius: 10px;
     background-color: lightgrey;
@@ -20,8 +13,8 @@ textarea {
     resize: none;
 }
 
-/* pseudo element styles */
 
+/* pseudo element styles */
 textarea::placeholder {
     text-align: center;
     
@@ -32,8 +25,8 @@ button:hover {
     color: white;
 }
 
-/* data styles begin */
 
+/* data styles begin */
 #today-data {
     padding: 0;
 }
@@ -44,14 +37,14 @@ li {
 
 #today {
     font-size: x-large;
-    padding: 15px 15px 15px 0;
+    padding: 15px;
 }
 
 #today span {
     padding-left: 15px;
 }
 
-#five-day > ul {
+#five-day ul {
     background-color: navy;
     color: white;
     margin: .5em;

@@ -191,6 +191,8 @@ var generateForecast = function(array) {
         listItemWind.textContent = a[3];
         listItemHumid.textContent = a[4];
 
+        ulEl.classList = "col-12 col-lg-2";
+
         ulEl.append(forecastDayEl, forecastIcon, listItemTemp, listItemWind, listItemHumid);
         fiveDayDivEl.appendChild(ulEl);
     }

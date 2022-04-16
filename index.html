@@ -16,30 +16,28 @@
         <h1 class="text-center mt-3">Weather Dashboard</h1>
     </header>
 
-    <main class="row p-3 m-3">
+    <main class="row flex-column flex-md-row p-3 m-3">
 
         <!-- holds together all left hand components -->
-        <div class="col-3 bg-secondary">
+        <div class="col-12 col-md-3 bg-secondary">
 
             <!-- form input containing textarea and button -->
             <form class="p-3">
                 <h2>Search for a City:</h2>
                 <textarea id="input" class="w-100" placeholder="Enter City Name"></textarea>
                 <button id="search-btn">Search</button>
-             </form>
+            </form>
 
             <!-- dynamically generated buttons with saved searches will go here -->
-            <div class="p-3 bg-success d-flex flex-column justify-content-center" id="saved-list">
-                <button>Saved Location Search</button>
-            </div>
+            <div class="p-3 bg-success d-flex flex-column justify-content-center" id="saved-list"></div>
 
         </div>
 
         <!-- holds together all generated data -->
-        <div class="col-9 p-3 bg-primary">
+        <div class="col-12 col-md-9 p-3 bg-primary">
             <!-- today data -->
             <div id="today">
-                <h2 id="city-header">Your Destination
+                <h2 id="city-header">Current Conditions:
                     <span id="today"></span>
                     <img id="icon" />
                 </h2>
@@ -51,9 +49,9 @@
                 </ul>
             </div>
             <!-- five day forecast data is dynamically generated-->
-            <div class="row mx-0">
-                <h2>5 Day Forecast:</h2>
-                <div class="d-flex flex-row justify-space-between" id="five-day"></div>
+            <div class="row flex-column mx-0">
+                <h2 class="col-12">5 Day Forecast:</h2>
+                <div class="d-flex flex-column flex-lg-row col-12 justify-content-around" id="five-day"></div>
             </div>
         </div>
         
