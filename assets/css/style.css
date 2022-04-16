@@ -1,11 +1,19 @@
 /* form & button styles begin */
 button {
     border-radius: 10px;
-    background-color: lightgrey;
-    color: black;
     border: none;
     width: 100%;
     padding: .25em;
+}
+
+#search-btn {
+    background-color: #83AAFF;
+    color: white;
+}
+
+#saved-list button {
+    background-color: lightgrey;
+    color: black;
 }
 
 textarea {
@@ -20,7 +28,7 @@ textarea::placeholder {
     
 }
 
-button:hover {
+#saved-list button:hover {
     background-color: #83AAFF;
     color: white;
 }

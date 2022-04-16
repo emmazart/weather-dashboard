@@ -6,37 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css"> -->
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Weather Dashboard</title>
 </head>
 
 <body>
-    <header>
-        <h1 class="text-center mt-3">Weather Dashboard</h1>
+    <header class="bg-primary">
+        <h1 class="text-center p-3">Weather Dashboard</h1>
     </header>
 
     <main class="row flex-column flex-md-row p-3 m-3">
 
         <!-- holds together all left hand components -->
-        <div class="col-12 col-md-3 bg-secondary">
+        <div class="col-12 col-md-3">
 
             <!-- form input containing textarea and button -->
-            <form class="p-3">
+            <form class="p-3 border-bottom border-secondary">
                 <h2>Search for a City:</h2>
                 <textarea id="input" class="w-100" placeholder="Enter City Name"></textarea>
                 <button id="search-btn">Search</button>
             </form>
 
             <!-- dynamically generated buttons with saved searches will go here -->
-            <div class="p-3 bg-success d-flex flex-column justify-content-center" id="saved-list"></div>
+            <div class="p-3 d-flex flex-column justify-content-center" id="saved-list"></div>
 
         </div>
 
         <!-- holds together all generated data -->
-        <div class="col-12 col-md-9 p-3 bg-primary">
+        <div class="col-12 col-md-9 p-3">
             <!-- today data -->
-            <div id="today">
+            <div class="border border-secondary" id="today">
                 <h2 id="city-header">Current Conditions:
                     <span id="today"></span>
                     <img id="icon" />
@@ -50,7 +49,7 @@
             </div>
             <!-- five day forecast data is dynamically generated-->
             <div class="row flex-column mx-0">
-                <h2 class="col-12">5 Day Forecast:</h2>
+                <h2 class="col-12 mt-3">5 Day Forecast:</h2>
                 <div class="d-flex flex-column flex-lg-row col-12 justify-content-around" id="five-day"></div>
             </div>
         </div>
