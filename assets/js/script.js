@@ -29,13 +29,17 @@ $(document).ready(function(){
     }
 
     // ---------- CLICK LISTENER FOR SEARCH BUTTON ---------- //
+
     $(searchBtn).click(function(event) {
         event.preventDefault();
+
         var lsCities = JSON.parse(localStorage.getItem("cities"));
 
 
         // select sibling textarea and return the value
         var input = $(this).siblings("#input").val();
+        // reset textarea value to empty to prepare for next input
+        $(this).siblings("#input").val("");
 
         // format user input to capitalize first letter
         var userInput = input.charAt(0).toUpperCase() + input.slice(1)
@@ -135,6 +139,8 @@ var coordinateFetch = function(lat, lon) {
         // grab 5 day forecast data
         var forecastArr = data.daily;
         console.log(forecastArr);
+        fiveDayForecastArr = []; // reset array to empty to prep for new pushes
+        fiveDayDivEl.innerHTML = ""; // clear out div
 
         // iterate through forecastArr
         for (i = 0; i < 5; i++) {
@@ -158,6 +164,7 @@ var coordinateFetch = function(lat, lon) {
             // push data to array
             fiveDayForecastArr.push(forecastObj);
         }
+
         generateForecast(fiveDayForecastArr);
     })
 }
@@ -169,13 +176,14 @@ var generateForecast = function(array) {
 
     for (var a of array) {
         // create elements to hold each data
-        // console.log(a);
+        console.log(a);
+
         var ulEl = document.createElement("ul");
         var forecastDayEl = document.createElement("p");
         var forecastIcon = document.createElement("img");
         var listItemTemp = document.createElement("li");
         var listItemWind = document.createElement("li");
-        var listItemHumid = document.createElement("li");
+        var listItemHumid = document.createElement("li");    
 
         forecastDayEl.textContent = a[0];
         forecastIcon.setAttribute("src", a[1])
@@ -203,6 +211,15 @@ var createBtns = function() {
 
     // event listener for save buttons
     console.log(lsCities);
-    // console.log(lsCities);
-    // newBtn.addEventListener("click", checkWeather(newBtn.textContent));
+    $(btnList).click(function(event) {
+        console.log("you clicked a saved button");
+
+        var target = event.target.textContent;
+
+        // update header with location selection
+        cityHeader.innerHTML = "<h2 id='city-header'>" + target + "<span id='today'>" + formatToday + "</span><img id='icon' /></h2>"
+
+        fiveDayDivEl.textContent = ""; // clear data
+        checkWeather(target);      
+    });
 }
