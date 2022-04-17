@@ -107,8 +107,11 @@ var checkWeather = function(userInput) {
                 console.log(errorInput);
 
                 if (errorInput == userInput) {
-                    console.log("delete this button");
-                    b.remove();
+                    b.remove(); // remove invalid input button
+
+                    let cities = JSON.parse(localStorage.getItem("cities"));
+                    cities.pop(); // remove invalid input from array
+                    localStorage.setItem("cities", JSON.stringify(cities));
                 } 
                 else {
                     console.log("this button is fine")
