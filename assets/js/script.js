@@ -10,6 +10,13 @@ var btnList = document.querySelector("#saved-list");
 var cityHeader = document.querySelector("#city-header");
 var cityToday = document.querySelector("#today-data");
 
+// select span elements to hold generated data for current weather
+var iconEl = document.querySelector("#icon");
+var tempEl = document.querySelector("#temp");
+var windEl = document.querySelector("#wind");
+var humidEl = document.querySelector("#humid");
+var uviEl = document.querySelector("#uvi");
+
 var fiveDayForecastArr = []; // empty array to hold forecast data
 var fiveDayDivEl = document.querySelector("#five-day");
 
@@ -83,7 +90,32 @@ var checkWeather = function(userInput) {
 
             // pass them through the coordinate fetch function
             coordinateFetch(lat, lon);
-        })};
+        })
+        .catch(error => {
+            console.error("There has been an error with your request:", error);
+
+            cityHeader.innerHTML = "<h2 id='city-header'>There has been an error with your request. <br /> Please enter a valid city.</h2>"
+            tempEl.textContent = "";
+            windEl.textContent = "";
+            humidEl.textContent = "";
+            uviEl.textContent = "";
+
+            let btns = document.getElementsByClassName("saved");
+
+            for (var b of btns) {
+                errorInput = b.textContent
+                console.log(errorInput);
+
+                if (errorInput == userInput) {
+                    console.log("delete this button");
+                    b.remove();
+                } 
+                else {
+                    console.log("this button is fine")
+                }
+            }    
+        });
+    };
 
 
 
@@ -91,13 +123,6 @@ var checkWeather = function(userInput) {
 var coordinateFetch = function(lat, lon) {
 
     // ---------- POPULATE TODAY'S WEATHER ---------- //
-    // select span elements to hold generated data
-    var iconEl = document.querySelector("#icon");
-    var tempEl = document.querySelector("#temp");
-    var windEl = document.querySelector("#wind");
-    var humidEl = document.querySelector("#humid");
-    var uviEl = document.querySelector("#uvi");
-
     var coordinateApi = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=8450bd340817d310b29bc7a4282140ff";
 
     fetch(coordinateApi)
@@ -205,7 +230,8 @@ var createBtns = function() {
     for (var c of lsCities) {
         var newBtn = document.createElement("button");
         newBtn.textContent = c;
-        newBtn.classList = "w-100 text-center py-1 my-2";
+        // newBtn.setAttribute("id", "saved")
+        newBtn.classList = "saved w-100 text-center py-1 my-2";
         btnList.appendChild(newBtn);
     }
 
